@@ -19,13 +19,16 @@ function sendQry(srterm, num){
            format: 'json' },
     dataType: 'jsonp',
     success: function (json) {
-      if(json.query.search[0] === undefined){
-        var tryAgain = document.createElement('p');
-        tryAgain.innerHTML = 'No results. Please try another search.';
-        document.querySelector('.resultBox').appendChild(tryAgain);
-      }
+      console.log(json.query.search[0] === undefined);
       if(document.querySelector('.resultBox').firstChild){
         reset();
+      }
+      if(!json.query.search[0]){
+        var tryAgain = document.createElement('p');
+        tryAgain.innerHTML = 'No results. Please try another search.';
+        console.log(tryAgain);
+        document.querySelector('.resultBox').appendChild(tryAgain);
+        console.log(document.querySelector('.resultBox'));
       }
       makeCards(json)
       writeCards(json);
