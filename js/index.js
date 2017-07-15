@@ -3,19 +3,14 @@ var searchForm = document.forms['search-form'];
 searchForm.addEventListener('submit', function(ev){
   var resultsNum = 10;
   ev.preventDefault();
-  
+
   sendQry(this['search-field'].value, resultsNum);
 });
 
-/*function submitSearch(form){
-  //console.log(form['search-field'].value);
-  sendQry(form['search-field'].value);
-}*/
-
 function sendQry(srterm, num){
   $.ajax({
-    url: '//en.wikipedia.org/w/api.php',
-    data: { action: 'query', 
+    url: 'https://en.wikipedia.org/w/api.php',
+    data: { action: 'query',
            list: 'search',
            srsearch: srterm,
            srlimit: num,
@@ -24,12 +19,13 @@ function sendQry(srterm, num){
            format: 'json' },
     dataType: 'jsonp',
     success: function (json) {
-      if(json.query.search[0] = undefined){
+      console.log(json.query.search);
+      if(json.query.search[0] === undefined){
         var tryAgain = document.createElement('p');
         tryAgain.innerHTML = 'No results. Please try another search.';
         document.querySelector('.resultBox').appendChild(tryAgain);
       }
-      makeCards(json.query.search.length)
+      makeCards(json)
       writeCards(json);
       console.log(json.query.search);
     },
@@ -39,11 +35,11 @@ function sendQry(srterm, num){
   });
 }
 
-function makeCards(len){
-  var container = document.querySelector('.resultBox'), 
+function makeCards(obj){
+  var container = document.querySelector('.resultBox'),
       card;
-  
-  for(let i=0; i<len; i++){
+
+  for(let i=0; i<obj.query.search.length; i++){
     card = document.createElement('div');
     card.classList.add('card');
     card.appendChild(document.createElement('h3')).classList.add('title');
@@ -53,27 +49,27 @@ function makeCards(len){
   }
 }
 
-function writeCards(len){
+function writeCards(obj){
   var pees = document.querySelectorAll('.snip');
   var titles = document.querySelectorAll('.title');
   var links = document.querySelectorAll('.link');
-  
-  for(let i=0; i<len.query.search.length; i++){
-    titles[i].innerHTML = len.query.search[i].title;
-    pees[i].innerHTML = len.query.search[i].snippet;
-    links[i].setAttribute('href', 'https://en.wikipedia.org/wiki/' + len.query.search[i].title.replace(' ', '_'));
+
+  for(let i=0; i<obj.query.search.length; i++){
+    titles[i].innerHTML = obj.query.search[i].title;
+    pees[i].innerHTML = obj.query.search[i].snippet;
+    links[i].setAttribute('href', 'https://en.wikipedia.org/wiki/' + obj.query.search[i].title.replace(' ', '_'));
     links[i].innerHTML = 'read more on Wikipedia';
   }
 }
 
 function reset(){
-  
+
 }
 
 /*function genSrch(srterm){
   $.ajax({
     url: '//en.wikipedia.org/w/api.php',
-    data: { action: 'query', 
+    data: { action: 'query',
            generator: 'search',
            gsrsearch: srterm,
            gsrwhat: 'title',
