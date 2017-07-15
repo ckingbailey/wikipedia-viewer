@@ -19,15 +19,19 @@ function sendQry(srterm, num){
            format: 'json' },
     dataType: 'jsonp',
     success: function (json) {
-      console.log(json.query.search);
-      if(json.query.search[0] === undefined){
+      console.log(json.query.search[0] === undefined);
+      if(document.querySelector('.resultBox').firstChild){
+        reset();
+      }
+      if(!json.query.search[0]){
         var tryAgain = document.createElement('p');
         tryAgain.innerHTML = 'No results. Please try another search.';
+        console.log(tryAgain);
         document.querySelector('.resultBox').appendChild(tryAgain);
+        console.log(document.querySelector('.resultBox'));
       }
       makeCards(json)
       writeCards(json);
-      console.log(json.query.search);
     },
     error: function(err) {
       alert('there was a problem with the request');
@@ -63,7 +67,10 @@ function writeCards(obj){
 }
 
 function reset(){
-
+  var container = document.querySelector('.resultBox');
+  while(container.firstChild){
+    container.removeChild(container.firstChild);
+  }
 }
 
 /*function genSrch(srterm){
