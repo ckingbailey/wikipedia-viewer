@@ -1,0 +1,31 @@
+{
+  "name": "wikipedia-viewer",
+  "version": "1.0.0",
+  "description": "search wikipedia articles",
+  "main": "index.js",
+  "dependencies": {
+    "masonry-layout": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckingbailey/wikipedia-viewer.git"
+  },
+  "keywords": [
+    "wikipedia",
+    "masonry",
+    "desandro-masonry",
+    "fcc",
+    "freecodecamp",
+    "student-project"
+  ],
+  "author": "ckb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckingbailey/wikipedia-viewer/issues"
+  },
+  "homepage": "https://github.com/ckingbailey/wikipedia-viewer#readme"
+}
