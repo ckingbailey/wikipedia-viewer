@@ -19,16 +19,13 @@ function sendQry(srterm, num){
            format: 'json' },
     dataType: 'jsonp',
     success: function (json) {
-      console.log(json.query.search[0] === undefined);
       if(document.querySelector('.resultBox').firstChild){
         reset();
       }
       if(!json.query.search[0]){
         var tryAgain = document.createElement('p');
         tryAgain.innerHTML = 'No results. Please try another search.';
-        console.log(tryAgain);
         document.querySelector('.resultBox').appendChild(tryAgain);
-        console.log(document.querySelector('.resultBox'));
       }
       makeCards(json)
       writeCards(json);
@@ -62,6 +59,7 @@ function writeCards(obj){
     titles[i].innerHTML = obj.query.search[i].title;
     pees[i].innerHTML = obj.query.search[i].snippet;
     links[i].setAttribute('href', 'https://en.wikipedia.org/wiki/' + obj.query.search[i].title.replace(' ', '_'));
+    links[i].setAttribute('target', '_blank');
     links[i].innerHTML = 'read more on Wikipedia';
   }
 }
@@ -72,21 +70,3 @@ function reset(){
     container.removeChild(container.firstChild);
   }
 }
-
-/*function genSrch(srterm){
-  $.ajax({
-    url: '//en.wikipedia.org/w/api.php',
-    data: { action: 'query',
-           generator: 'search',
-           gsrsearch: srterm,
-           gsrwhat: 'title',
-           gsrlimit: '4',
-           prop: 'images',
-           imlimit: '1',
-           format: 'json' },
-    dataType: 'jsonp',
-    success: function (x) {
-      console.log(x.query.pages);
-    }
-  });
-}*/

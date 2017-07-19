@@ -1,0 +1,17 @@
+.card {
+  display: inline-block;
+  background-color: lightGrey;
+  width: 20%;
+  padding: 1rem;
+  border: 1px solid grey;
+}
+
+#search-form {
+  margin: 1rem;
+  width: 90%;
+}
+
+#search-field {
+  width: 90%;
+  line-height: 1.5rem;
+}
