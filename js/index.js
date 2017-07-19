@@ -85,3 +85,10 @@ var wikiSearch = function(form){
 }
 
 wikiSearch(document.forms['search-form']);
+
+//Desandro/Masonry stuff
+var msnry = new Masonry(container, {
+  itemSelector: '.card',
+  columnWidth: '.column',
+  percentPosition: true
+});
