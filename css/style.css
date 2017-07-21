@@ -1,7 +1,12 @@
+.column-sizer, .card {
+  width: 20%;
+}
+
 .card {
+  width: 20%;
+  box-sizing: border-box;
   display: inline-block;
   background-color: lightGrey;
-  width: 20%;
   padding: 1rem;
   border: 1px solid grey;
 }
