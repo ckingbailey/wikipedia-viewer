@@ -8,7 +8,7 @@ var wikiSearch = function(form){
       },
       card, i, page,
       msnry = new Masonry(container, {
-        itemSelector: '',
+        itemSelector: '.card',
         columnWidth: '.column-sizer',
         percentPosition: true
       });
@@ -35,7 +35,9 @@ var wikiSearch = function(form){
              format: 'json' },
       dataType: 'jsonp',
       success: function (json) {
-        if(container.firstChild){
+        if(container.querySelector('.card')){
+          msnry.colYs.fill(0);
+          //msnry.options.colYs.fill(0);
           reset();
         }
         if(!json.query){
@@ -47,10 +49,8 @@ var wikiSearch = function(form){
           makeCards(json);
           writeCards(json);
           imagesLoaded(container, function(){
-            msnry.options.itemSelector = '.card';
             msnry.layout();
           });
-          console.log(cards);
         }
       },
       error: function(err) {
