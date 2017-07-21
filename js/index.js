@@ -6,7 +6,14 @@ var wikiSearch = function(form){
         snips: [],
         links: []
       },
-      card, i, page;
+      card, i, page,
+      msnry = new Masonry(container, {
+        itemSelector: '',
+        columnWidth: '.column-sizer',
+        percentPosition: true
+      });
+
+  console.log(msnry);
 
   form.addEventListener('submit', function(ev){
     ev.preventDefault();
@@ -41,6 +48,11 @@ var wikiSearch = function(form){
         else {
           makeCards(json);
           writeCards(json);
+          imagesLoaded(container, function(){
+            msnry.options.itemSelector = '.card';
+            msnry.layout();
+            console.log(msnry);
+          })
         }
       },
       error: function(err) {
@@ -58,6 +70,7 @@ var wikiSearch = function(form){
       card.appendChild(document.createElement('p')).classList.add('snip');
       card.appendChild(document.createElement('a')).classList.add('link');
       container.appendChild(card);
+      msnry.appended(card);
     }
     cards.titles = document.querySelectorAll('.title');
     cards.pics = document.querySelectorAll('.leadImg');
@@ -78,17 +91,10 @@ var wikiSearch = function(form){
   }
 
   function reset(){
-    while(container.firstChild){
-      container.removeChild(container.firstChild);
+    while(container.querySelector('.card')){
+      container.removeChild(container.querySelector('.card'));
     }
   }
 }
 
 wikiSearch(document.forms['search-form']);
-
-//Desandro/Masonry stuff
-var msnry = new Masonry('.resultBox', {
-  itemSelector: '.card',
-  columnWidth: '.column',
-  percentPosition: true
-});

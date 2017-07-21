@@ -1,8 +1,9 @@
-.column, .card {
+.column-sizer, .card {
   width: 20%;
 }
 
 .card {
+  width: 20%;
   display: inline-block;
   background-color: lightGrey;
   padding: 1rem;

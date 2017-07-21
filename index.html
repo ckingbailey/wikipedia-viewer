@@ -2,6 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wikipedia viewer</title>
 
 
@@ -16,10 +17,10 @@
   <label><input id='search-field' type='text' name='search-field' placeholder='search'>
   <input id='sub-btn' type='submit' name="subsrch"><br><span>Search for meaning<span></label>
 </form>
-<div class='resultBox'>
-</div>
+<div class='resultBox'><div class='column-sizer'></div></div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <script src="node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
+  <script src="node_modules/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="js/index.js"></script>
 </body>
 </html>
