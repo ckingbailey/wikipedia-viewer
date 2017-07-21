@@ -6,7 +6,8 @@ var wikiSearch = function(form){
         snips: [],
         links: []
       },
-      searchField = form['search-field'],
+      searchForm = form['search-form'],
+      searchField = searchForm['search-field'],
       card, i, page,
       msnry = new Masonry(container, {
         itemSelector: '.card',
@@ -23,17 +24,17 @@ var wikiSearch = function(form){
     }, 1);
   });
 
-  form.addEventListener('submit', function(ev){
+  searchForm.addEventListener('submit', function(ev){
     ev.preventDefault();
 
-    sendQry(this['search-field'].value);
+    sendQry('search', this['search-field'].value);
   });
 
-  function sendQry(srterm){
+  function sendQry(act, srterm){
     $.ajax({
       url: 'http://en.wikipedia.org/w/api.php',
       data: { action: 'query',
-             generator: 'search',
+             generator: act,
                gsrsearch: srterm,
                gsrlimit: 10,
              prop: 'pageimages|extracts',
@@ -106,4 +107,4 @@ var wikiSearch = function(form){
   }
 }
 
-wikiSearch(document.forms['search-form']);
+wikiSearch(document.forms);

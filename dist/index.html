@@ -8,11 +8,16 @@
 </head>
 
 <body>
-  <form id='search-form'>
-  <label><input id='search-field' autofocus='true' inputmode='latin' type='text' name='search-field' placeholder='search'>
-  <input id='sub-btn' type='submit' name='subsrch' value='Search'><br><span>Search for meaning<span></label>
-</form>
-<div class='resultBox'><div class='column-sizer'></div></div>
+  <div class="forms">
+    <form id='search-form'>
+      <label><input id='search-field' autofocus='true' inputmode='latin' type='text' name='search-field' placeholder='search'>
+      <input id='sub-btn' type='submit' name='subsrch' value='Search'><br><span>Search for meaning<span></label>
+    </form>
+    <form id='random-page'>
+      <input id='get-random' name='get-random' type='submit' value='Random'>
+    </form>
+  </div>
+  <div class='resultBox'><div class='column-sizer'></div></div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <script src="js/node_modules/masonry.pkgd.min.js"></script>
   <script src="js/node_modules/imagesloaded.pkgd.min.js"></script>
