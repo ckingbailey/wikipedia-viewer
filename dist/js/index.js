@@ -6,12 +6,22 @@ var wikiSearch = function(form){
         snips: [],
         links: []
       },
+      searchField = form['search-field'],
       card, i, page,
       msnry = new Masonry(container, {
         itemSelector: '.card',
         columnWidth: '.column-sizer',
         percentPosition: true
       });
+
+  searchField.addEventListener('focus', function(){
+    var focusedEl;
+    if(focusedEl === this) return; //field already focused. return so user can click to place cursor at specific point in input
+    focusedEl = this;
+    setTimeout(function(){
+      focusedEl.select()
+    }, 1);
+  });
 
   form.addEventListener('submit', function(ev){
     ev.preventDefault();
