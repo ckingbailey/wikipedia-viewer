@@ -4,6 +4,7 @@
 
 .card {
   width: 20%;
+  box-sizing: border-box;
   display: inline-block;
   background-color: lightGrey;
   padding: 1rem;
