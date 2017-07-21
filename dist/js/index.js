@@ -13,8 +13,6 @@ var wikiSearch = function(form){
         percentPosition: true
       });
 
-  console.log(msnry);
-
   form.addEventListener('submit', function(ev){
     ev.preventDefault();
 
@@ -51,8 +49,8 @@ var wikiSearch = function(form){
           imagesLoaded(container, function(){
             msnry.options.itemSelector = '.card';
             msnry.layout();
-            console.log(msnry);
-          })
+          });
+          console.log(cards);
         }
       },
       error: function(err) {
@@ -87,6 +85,7 @@ var wikiSearch = function(form){
       cards.snips[i].innerHTML = page.extract;
       cards.links[i].setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
       cards.links[i].innerHTML = 'read more on Wikipedia';
+      cards.links[i].setAttribute('target', '_blank');
     }
   }
 
