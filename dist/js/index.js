@@ -1,14 +1,8 @@
 var wikiSearch = function(form){
   var container = document.querySelector('.resultBox'),
-      cards = {
-        titles: [],
-        pics: [],
-        snips: [],
-        links: []
-      },
       searchForm = form['search-form'],
       searchField = searchForm['search-field'],
-      card, i, page,
+      card, cards, i, page,
       msnry = new Masonry(container, {
         itemSelector: '.card',
         columnWidth: '.column-sizer',
@@ -91,13 +85,9 @@ var wikiSearch = function(form){
       card.appendChild(document.createElement('img')).classList.add('leadImg');
       card.appendChild(document.createElement('p')).classList.add('snip');
       card.appendChild(document.createElement('a')).classList.add('link');
-      container.appendChild(card);
+      cards.appendChild(card);
       msnry.appended(card);
     }
-    cards.titles = document.querySelectorAll('.title');
-    cards.pics = document.querySelectorAll('.leadImg');
-    cards.snips = document.querySelectorAll('.snip');
-    cards.links = document.querySelectorAll('.link');
   }
 
   function writeCards(obj){
