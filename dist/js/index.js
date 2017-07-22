@@ -2,7 +2,8 @@ var wikiSearch = function(form){
   var container = document.querySelector('.resultBox'),
       searchForm = form['search-form'],
       searchField = searchForm['search-field'],
-      card, cards, i, page,
+      cards = [],
+      card, link, page,
       msnry = new Masonry(container, {
         itemSelector: '.card',
         columnWidth: '.column-sizer',
@@ -24,21 +25,21 @@ var wikiSearch = function(form){
     sendQry('search', this['search-field'].value);
   });
 
-  function buildData(act, srterm, num){
-    var dataObj = srterm ? {
-      generator: act,
-      gsrsearch: srterm,
-      gsrlimit: num || 10
+  function qrySpecifics(qryType, search, qryLimit){
+    var qryData = search ? {
+      gsrsearch: search,
+      gsrlimit: qryLimit || 10
     } : {
-      generator: act,
       grnlimit: 1
     };
-    return dataObj;
+    return qryData;
   }
 
   function sendQry(act, srterm, num){
-    var qryData = buildData(act, srterm, num),
-    sharedOutputs = {
+    var dataObj = qrySpecifics(act, srterm, num),
+    sharedInputs = {
+      action: 'query',
+      generator: act,
       prop: 'pageimages|extracts',
         exchars: 100,
         exintro: 'true',
@@ -48,13 +49,11 @@ var wikiSearch = function(form){
       format: 'json'
     };
 
-    Object.assign(qryData, sharedOutputs);
-
-    console.log(qryData);
+    Object.assign(dataObj, sharedInputs);
 
     $.ajax({
       url: 'http://en.wikipedia.org/w/api.php',
-      data: qryData,
+      data: dataObj,
       dataType: 'jsonp',
       success: function (json) {
         if(container.querySelector('.card')){
@@ -88,8 +87,9 @@ var wikiSearch = function(form){
       card.appendChild(document.createElement('h3')).classList.add('title');
       card.appendChild(document.createElement('img')).classList.add('leadImg');
       card.appendChild(document.createElement('p')).classList.add('snip');
-      card.appendChild(document.createElement('a')).classList.add('link');
-      cards.appendChild(card);
+      card.appendChild(document.createElement('a')).classList.add('link')
+      container.appendChild(card);
+      cards.push(card);
       msnry.appended(card);
     }
   }
@@ -97,16 +97,15 @@ var wikiSearch = function(form){
   function writeCards(obj){
     for(pageid in obj.query.pages){
       page = obj.query.pages[pageid];
-      i = page.index - 1;
-      card = cards[i];
-      card.querySelector('.title').innerHTML = page.title;
+      card = cards[page.index - 1].children;
+      card[0].innerHTML = page.title;
       if(page.thumbnail){
-        card.querySelector('.leadImg').setAttribute('src', page.thumbnail.source);
+        card[1].setAttribute('src', page.thumbnail.source);
       }
-      card.querySelector('.snip').innerHTML = page.extract;
-      card.setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
-      card.querySelector('.link').innerHTML = 'read more on Wikipedia';
-      card.querySelector('.link').setAttribute('target', '_blank');
+      card[2].innerHTML = page.extract;
+      card[3].setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
+      card[3].innerHTML = 'read more on Wikipedia';
+      card[3].setAttribute('target', '_blank');
     }
   }
 
