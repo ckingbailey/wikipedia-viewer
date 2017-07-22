@@ -1,6 +1,6 @@
 var wikiSearch = function(form){
   var container = document.querySelector('.resultBox'),
-      searchForm = form['search-form'],
+      searchForm = form,
       searchField = searchForm['search-field'],
       cards = [],
       card, link, page,
@@ -19,6 +19,10 @@ var wikiSearch = function(form){
     }, 1);
   });
 
+  form['random'].addEventListener('click', function(ev){
+    sendQry('random');
+  });
+
   searchForm.addEventListener('submit', function(ev){
     ev.preventDefault();
 
@@ -35,11 +39,11 @@ var wikiSearch = function(form){
     return qryData;
   }
 
-  function sendQry(act, srterm, num){
-    var dataObj = qrySpecifics(act, srterm, num),
+  function sendQry(gen, srterm, num){
+    var dataObj = qrySpecifics(gen, srterm, num),
     sharedInputs = {
       action: 'query',
-      generator: act,
+      generator: gen,
       prop: 'pageimages|extracts',
         exchars: 100,
         exintro: 'true',
@@ -67,6 +71,7 @@ var wikiSearch = function(form){
           document.querySelector('.resultBox').appendChild(tryAgain);
         }
         else {
+          console.log(json);
           makeCards(json);
           writeCards(json);
           imagesLoaded(container, function(){
@@ -95,9 +100,9 @@ var wikiSearch = function(form){
   }
 
   function writeCards(obj){
-    for(pageid in obj.query.pages){
+    cards.forEach(function(card){
       page = obj.query.pages[pageid];
-      card = cards[page.index - 1].children;
+      card = card.children;
       card[0].innerHTML = page.title;
       if(page.thumbnail){
         card[1].setAttribute('src', page.thumbnail.source);
@@ -106,7 +111,7 @@ var wikiSearch = function(form){
       card[3].setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
       card[3].innerHTML = 'read more on Wikipedia';
       card[3].setAttribute('target', '_blank');
-    }
+    });
   }
 
   function reset(){
@@ -116,4 +121,4 @@ var wikiSearch = function(form){
   }
 }
 
-wikiSearch(document.forms);
+wikiSearch(document.forms['search-form']);
