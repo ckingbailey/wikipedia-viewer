@@ -30,20 +30,33 @@ var wikiSearch = function(form){
     sendQry('search', this['search-field'].value);
   });
 
-  function sendQry(act, srterm){
+  function buildData(act, srterm, num){
+    var dataObj = srterm ? {
+      generator: act,
+      gsrsearch: srterm,
+      gsrlimit: num || 10
+    } : {
+      generator: act,
+      grnlimit: 1
+    };
+    Object.assign(dataObj, sharedOutputs);
+    return dataObj;
+  }
+
+  function sendQry(act, srterm, num){
+    var qryData = buildData(act, srterm, num),
+    sharedOutputs = {
+      prop: 'pageimages|extracts',
+        exchars: 100,
+        exintro: 'true',
+        explaintext: 'true',
+        piprop: 'thumbnail',
+        pithumbsize: '200',
+      format: 'json'
+    };
     $.ajax({
       url: 'http://en.wikipedia.org/w/api.php',
-      data: { action: 'query',
-             generator: act,
-               gsrsearch: srterm,
-               gsrlimit: 10,
-             prop: 'pageimages|extracts',
-               exchars: 100,
-               exintro: 'true',
-               explaintext: 'true',
-               piprop: 'thumbnail',
-               pithumbsize: '200',
-             format: 'json' },
+      data: qryData,
       dataType: 'jsonp',
       success: function (json) {
         if(container.querySelector('.card')){
