@@ -33,7 +33,6 @@ var wikiSearch = function(form){
       generator: act,
       grnlimit: 1
     };
-    Object.assign(dataObj, sharedOutputs);
     return dataObj;
   }
 
@@ -48,6 +47,11 @@ var wikiSearch = function(form){
         pithumbsize: '200',
       format: 'json'
     };
+
+    Object.assign(qryData, sharedOutputs);
+
+    console.log(qryData);
+
     $.ajax({
       url: 'http://en.wikipedia.org/w/api.php',
       data: qryData,
@@ -94,12 +98,15 @@ var wikiSearch = function(form){
     for(pageid in obj.query.pages){
       page = obj.query.pages[pageid];
       i = page.index - 1;
-      cards.titles[i].innerHTML = page.title;
-      if(page.thumbnail){ cards.pics[i].setAttribute('src', page.thumbnail.source); }
-      cards.snips[i].innerHTML = page.extract;
-      cards.links[i].setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
-      cards.links[i].innerHTML = 'read more on Wikipedia';
-      cards.links[i].setAttribute('target', '_blank');
+      card = cards[i];
+      card.querySelector('.title').innerHTML = page.title;
+      if(page.thumbnail){
+        card.querySelector('.leadImg').setAttribute('src', page.thumbnail.source);
+      }
+      card.querySelector('.snip').innerHTML = page.extract;
+      card.setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
+      card.querySelector('.link').innerHTML = 'read more on Wikipedia';
+      card.querySelector('.link').setAttribute('target', '_blank');
     }
   }
 
