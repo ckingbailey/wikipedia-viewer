@@ -2,8 +2,7 @@ var wikiSearch = function(form){
   var container = document.querySelector('.resultBox'),
       searchForm = form,
       searchField = searchForm['search-field'],
-      cards = [],
-      card, link, page,
+      card, cards, i, link, page,
       msnry = new Masonry(container, {
         itemSelector: '.card',
         columnWidth: '.column-sizer',
@@ -34,7 +33,8 @@ var wikiSearch = function(form){
       gsrsearch: search,
       gsrlimit: qryLimit || 10
     } : {
-      grnlimit: 1
+      grnlimit: 1,
+      grnnamespace: 0
     };
     return qryData;
   }
@@ -52,6 +52,7 @@ var wikiSearch = function(form){
         pithumbsize: '200',
       format: 'json'
     };
+    console.log('dataObj', dataObj);
 
     Object.assign(dataObj, sharedInputs);
 
@@ -71,7 +72,7 @@ var wikiSearch = function(form){
           document.querySelector('.resultBox').appendChild(tryAgain);
         }
         else {
-          console.log(json);
+          console.log('returned obj', json);
           makeCards(json);
           writeCards(json);
           imagesLoaded(container, function(){
@@ -86,6 +87,7 @@ var wikiSearch = function(form){
   }
 
   function makeCards(obj){
+    cards = [];
     for(pageid in obj.query.pages){
       card = document.createElement('div');
       card.classList.add('card');
@@ -100,9 +102,13 @@ var wikiSearch = function(form){
   }
 
   function writeCards(obj){
-    cards.forEach(function(card){
+    i = 0;
+    console.log('cards', cards);
+    for(pageid in obj.query.pages){
       page = obj.query.pages[pageid];
-      card = card.children;
+      console.log('i =', i);
+      card = cards[i].children;
+      console.log('card', i, cards[i], page, page[pageid]);
       card[0].innerHTML = page.title;
       if(page.thumbnail){
         card[1].setAttribute('src', page.thumbnail.source);
@@ -111,7 +117,8 @@ var wikiSearch = function(form){
       card[3].setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
       card[3].innerHTML = 'read more on Wikipedia';
       card[3].setAttribute('target', '_blank');
-    });
+      i++;
+    }
   }
 
   function reset(){
