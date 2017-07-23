@@ -11,12 +11,24 @@
   border: 1px solid grey;
 }
 
-#search-form {
+.forms form {
+  vertical-align: top;
+}
+
+form {
+  display: inline-block;
   margin: 1rem;
-  width: 90%;
+}
+
+#search-form {
+  width: 80%;
 }
 
 #search-field {
-  width: 90%;
+  width: 80%;
+  line-height: 1.5rem;
+}
+
+#random-page {
   line-height: 1.5rem;
 }
