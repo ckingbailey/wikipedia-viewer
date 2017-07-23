@@ -24,6 +24,7 @@ var wikiSearch = function(form){
 
   searchForm.addEventListener('submit', function(ev){
     ev.preventDefault();
+    if(!this['search-field'].value){ return; }
 
     sendQry('search', this['search-field'].value);
   });
@@ -61,15 +62,15 @@ var wikiSearch = function(form){
       data: dataObj,
       dataType: 'jsonp',
       success: function (json) {
-        if(container.querySelector('.card')){
+        if(container.querySelector('.card') || container.querySelector('.try-again')){
           msnry.colYs.fill(0);
           reset();
         }
         if(!json.query){
           var tryAgain = document.createElement('p');
-          tryAgain.classList.add('card');
+          tryAgain.classList.add('try-again');
           tryAgain.innerHTML = 'No results. Please try another search.';
-          document.querySelector('.resultBox').appendChild(tryAgain);
+          container.appendChild(tryAgain);
         }
         else {
           console.log('returned obj', json);
@@ -124,6 +125,9 @@ var wikiSearch = function(form){
   function reset(){
     while(container.querySelector('.card')){
       container.removeChild(container.querySelector('.card'));
+    }
+    while(container.querySelector('.try-again')){
+      container.removeChild(container.querySelector('.try-again'));
     }
   }
 }

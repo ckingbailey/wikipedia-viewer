@@ -2,7 +2,7 @@
   width: 20%;
 }
 
-div.card {
+.card {
   width: 20%;
   box-sizing: border-box;
   display: inline-block;
