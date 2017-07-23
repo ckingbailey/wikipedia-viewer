@@ -63,11 +63,11 @@ var wikiSearch = function(form){
       success: function (json) {
         if(container.querySelector('.card')){
           msnry.colYs.fill(0);
-          //msnry.options.colYs.fill(0);
           reset();
         }
         if(!json.query){
           var tryAgain = document.createElement('p');
+          tryAgain.classList.add('card');
           tryAgain.innerHTML = 'No results. Please try another search.';
           document.querySelector('.resultBox').appendChild(tryAgain);
         }
