@@ -103,10 +103,10 @@ var wikiSearch = function(form){
   }
 
   function writeCards(obj){
-    i = 0;
     console.log('cards', cards);
     for(pageid in obj.query.pages){
       page = obj.query.pages[pageid];
+      i = page.index - 1 || 0;
       console.log('i =', i);
       card = cards[i].children;
       console.log('card', i, cards[i], page, page[pageid]);
@@ -118,7 +118,6 @@ var wikiSearch = function(form){
       card[3].setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
       card[3].innerHTML = 'read more on Wikipedia';
       card[3].setAttribute('target', '_blank');
-      i++;
     }
   }
 
