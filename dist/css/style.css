@@ -1,14 +1,28 @@
-.column-sizer, .card {
-  width: 20%;
+@media screen and (min-width: 980px) {
+  .column-sizer, .card {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 979px) {
+  .column-sizer, .card {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .column-sizer, .card {
+    width: 100%;
+  }
 }
 
 .card {
-  width: 20%;
   box-sizing: border-box;
   display: inline-block;
-  background-color: lightGrey;
+  background-color: azure;
   padding: 1rem;
   border: 1px solid grey;
+  box-shadow: 1px 2px 2px grey;
 }
 
 .forms form {

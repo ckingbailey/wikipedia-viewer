@@ -103,13 +103,10 @@ var wikiSearch = function(form){
   }
 
   function writeCards(obj){
-    console.log('cards', cards);
     for(pageid in obj.query.pages){
       page = obj.query.pages[pageid];
       i = page.index - 1 || 0;
-      console.log('i =', i);
       card = cards[i].children;
-      console.log('card', i, cards[i], page, page[pageid]);
       card[0].innerHTML = page.title;
       if(page.thumbnail){
         card[1].setAttribute('src', page.thumbnail.source);
