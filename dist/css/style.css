@@ -2,18 +2,30 @@
   .column-sizer, .card {
     width: 20%;
   }
+  .leadArticle {
+    width: 40%;
+  }
 }
 
 @media screen and (max-width: 979px) {
   .column-sizer, .card {
     width: 50%;
   }
-}
+  .leadArticle {
+    width: 100%;
+  }}
 
 @media screen and (max-width: 500px) {
   .column-sizer, .card {
     width: 100%;
   }
+  .leadArticle {
+    background-color: lavenderBlush;
+  }
+}
+
+.leadArticle .imgWrap {
+  text-align: center;
 }
 
 .card {
@@ -23,6 +35,10 @@
   padding: 1rem;
   border: 1px solid grey;
   box-shadow: 1px 2px 2px grey;
+}
+
+.card a {
+  margin-bottom: 1rem;
 }
 
 .forms form {

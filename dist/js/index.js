@@ -118,6 +118,7 @@ var wikiSearch = function(form){
       cards.push(card);
       msnry.appended(card);
     }
+    cards[0].classList.add('leadArticle');
   }
 
   function writeCards(obj){
