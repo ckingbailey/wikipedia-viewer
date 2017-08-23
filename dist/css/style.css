@@ -19,9 +19,13 @@
   .column-sizer, .card {
     width: 100%;
   }
-  .leadArticle {
+  .card.leadArticle {
     background-color: lavenderBlush;
   }
+}
+
+.leadArticle {
+  z-index: 2;
 }
 
 .leadArticle .imgWrap {
@@ -34,7 +38,8 @@
   background-color: azure;
   padding: 1rem;
   border: 1px solid grey;
-  box-shadow: 1px 2px 2px grey;
+  border-radius: 2px;
+  box-shadow: 1px 2px 5px grey;
 }
 
 .card a {
