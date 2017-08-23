@@ -34,6 +34,10 @@ form {
   margin: 1rem;
 }
 
+.imgWrap {
+  overflow: hidden;
+}
+
 #search-form {
   width: 80%;
 }

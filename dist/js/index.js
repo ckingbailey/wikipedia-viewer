@@ -53,7 +53,6 @@ var wikiSearch = function(form){
       container.appendChild(tryAgain);
     }
     else {
-      console.log('returned obj', obj);
       makeCards(obj);
       writeCards(obj);
       imagesLoaded(container, function(){
@@ -86,7 +85,6 @@ var wikiSearch = function(form){
             pithumbsize: '200',
           format: 'json'
         };
-    console.log('outgoing dataObj', dataObj);
 
     Object.assign(dataObj, sharedInputs);
 
@@ -96,25 +94,6 @@ var wikiSearch = function(form){
       dataType: 'jsonp',
       success: function (json) {
         return callback(json);
-/*----------------------------------------------------------
-        if(container.querySelector('.card') || container.querySelector('.try-again')){
-          msnry.colYs.fill(0);
-          reset();
-        }
-        if(!json.query){
-          var tryAgain = document.createElement('p');
-          tryAgain.classList.add('try-again');
-          tryAgain.innerHTML = 'No results. Please try another search.';
-          container.appendChild(tryAgain);
-        }
-        else {
-          console.log('returned obj', json);
-          makeCards(json);
-          writeCards(json);
-          imagesLoaded(container, function(){
-            msnry.layout();
-          });
-        }--------------------------------------------------*/
       },
       error: function(err) {
         alert('there was a problem with the request');
@@ -123,12 +102,16 @@ var wikiSearch = function(form){
   }
 
   function makeCards(obj){
+    var imgBox;
     cards = [];
     for(pageid in obj.query.pages){
       card = document.createElement('div');
+      imgBox = document.createElement('div');
+      imgBox.classList.add('imgWrap');
       card.classList.add('card');
       card.appendChild(document.createElement('h3')).classList.add('title');
-      card.appendChild(document.createElement('img')).classList.add('leadImg');
+      card.appendChild(imgBox)
+        .appendChild(document.createElement('img')).classList.add('leadImg');
       card.appendChild(document.createElement('p')).classList.add('snip');
       card.appendChild(document.createElement('a')).classList.add('link')
       container.appendChild(card);
@@ -144,7 +127,7 @@ var wikiSearch = function(form){
       card = cards[i].children;
       card[0].innerHTML = page.title;
       if(page.thumbnail){
-        card[1].setAttribute('src', page.thumbnail.source);
+        card[1].firstChild.setAttribute('src', page.thumbnail.source);
       }
       card[2].innerHTML = page.extract;
       card[3].setAttribute('href', 'http://en.wikipedia.org/wiki/' + page.title.replace(' ', '_'));
